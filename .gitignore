@@ -1,0 +1,5 @@
+.idea
+
+inventory-service/data
+order-service/mysql_data
+product-service/data
