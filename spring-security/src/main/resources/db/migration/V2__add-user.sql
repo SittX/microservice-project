@@ -1,0 +1,1 @@
+INSERT INTO t_users(username, password, isactive) VALUES('kevin', '$2a$12$oLmqWaBWeqVvXbtvpp0/0OLG35268849sFIvL2OjQbGVQQbRs6lbO', false);

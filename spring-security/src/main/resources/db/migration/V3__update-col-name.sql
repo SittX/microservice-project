@@ -1,0 +1,1 @@
+ALTER TABLE t_users RENAME isactive TO is_active;
