@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: order-service
+              uri: http://localhost:8081
+              predicates:
+                - Path=/orders/**
+              filters:
+                - PrefixPath=/api
+                - AddResponseHeader=X-Powered-By, KST Cloud Gateway for order service
+            - id: inventory-service
+              uri: http://localhost:8082
+              predicates:
+                - Path=/inventory/**
+              filters:
+                - PrefixPath=/api
+                - AddResponseHeader=X-Powered-By, KST Cloud Gateway for inventory service
