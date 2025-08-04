@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    depends_on:
+      mongodb:
+        condition: service_healthy
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: product-service
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./data:/data/db
+
+networks:
+  backend-network:
+    name: microservice_backend_network
+    external: true

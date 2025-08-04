@@ -1,20 +1,14 @@
+server:
+  port: 8080
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
 spring:
-  cloud:
-    gateway:
-      server:
-        webflux:
-          routes:
-            - id: order-service
-              uri: http://localhost:8081
-              predicates:
-                - Path=/orders/**
-              filters:
-                - PrefixPath=/api
-                - AddResponseHeader=X-Powered-By, KST Cloud Gateway for order service
-            - id: inventory-service
-              uri: http://localhost:8082
-              predicates:
-                - Path=/inventory/**
-              filters:
-                - PrefixPath=/api
-                - AddResponseHeader=X-Powered-By, KST Cloud Gateway for inventory service
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://host.docker.internal:8080/realms/microservice-api-gateway
+          jwk-set-uri: http://host.docker.internal:8085/realms/microservice-api-gateway/protocol/openid-connect/certs

@@ -4,3 +4,4 @@ inventory-service/data
 order-service/mysql_data
 product-service/data
 spring-security/pg_data
+api-gateway/postgres_data
