@@ -1,13 +1,17 @@
 services:
   gateway:
+    container_name: api_gateway
     build: .
     ports:
-      - "8080:8080"
+      - "9090:8080"
     depends_on:
       keycloak:
         condition: service_healthy
+    networks:
+      - backend_network
 
   postgres:
+    container_name: gateway_postgres
     image: postgres:latest
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
@@ -20,6 +24,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - backend_network
 
   keycloak:
     image: quay.io/keycloak/keycloak:latest
@@ -48,8 +54,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - backend_network
 
 networks:
-  backend-network:
-    name: microservice_backend_network
+  backend_network:
     external: true

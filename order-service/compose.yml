@@ -8,9 +8,12 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/order
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: password
+      API_GATEWAY_URL: http://api_gateway:8080
     depends_on:
       mysql:
         condition: service_healthy
+    networks:
+      - backend_network
   mysql:
     image: mysql:latest
     container_name: mysql_container
@@ -30,8 +33,9 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql_data:/var/lib/mysql
+    networks:
+      - backend_network
 
 networks:
-  backend-network:
-    name: microservice_backend_network
+  backend_network:
     external: true
